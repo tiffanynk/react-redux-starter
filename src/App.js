@@ -1,25 +1,40 @@
-import logo from './logo.svg';
 import './App.css';
+import { useEffect } from 'react'
+import { connect } from 'react-redux'
+import axios from 'axios'
+import CharacterContainer from './components/CharacterContainer';
 
-function App() {
+const baseUrl = 'https://rickandmortyapi.com/api/character/?page=7'
+
+function App({setCharacters, characters}) {
+
+  useEffect(() => {
+    axios.get(baseUrl)
+    .then(({data}) => setCharacters(data.results))
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <section className="heading">
+        <h1>The Rick and Morty API</h1>
+        <h2>Using Hooks with React-Redux</h2>
+      </section>
+      <CharacterContainer characters={characters} />
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = ({characters}) => ({
+  characters
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  setCharacters: (characters) => {
+    dispatch({
+      type: 'SET_CHARACTERS',
+      characters
+    })
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
