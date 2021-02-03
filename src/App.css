@@ -92,3 +92,10 @@
   display: inline-block;
   margin-right: 10px;
 }
+
+.remove-button {
+  background-color: red;
+  color: white;
+  font-weight: 900;
+  padding: 2px;
+}

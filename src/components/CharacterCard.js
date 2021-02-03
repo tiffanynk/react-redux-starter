@@ -9,11 +9,12 @@ export default function CharacterCard(props) {
       <div className="character-card-content">
         <h3 className="character-card-name">{props.name}</h3>
         <p className="character-card-status">
-          <span className={props.status == "Alive" ? "green" : "red"}></span>
+          <span className={props.status === "Alive" ? "green" : "red"}></span>
           {props.status} - {props.species}
         </p>
         <p className="text-gray">Last known location:</p>
         <p className="character-card-location">{props.location.name}</p>
+        <button className="remove-button">Remove</button>
       </div>
     </li>
   )
